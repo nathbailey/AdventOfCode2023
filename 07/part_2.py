@@ -8,8 +8,9 @@ ans = sum(
     for rank, (*_, bid) in enumerate(
         sorted(
             (
-                max(Counter(hand).values()) - len(set(hand)),
-                *map("23456789TJQKA".index, hand),
+                max(0, 0, *map(hand.count, set(hand) - {"J"})) + hand.count("J"),
+                -(max(1, len(set(hand) - {"J"}))),
+                *map("J23456789TQKA".index, hand),
                 int(str_bid),
             )
             for hand, str_bid in map(str.split, data)
